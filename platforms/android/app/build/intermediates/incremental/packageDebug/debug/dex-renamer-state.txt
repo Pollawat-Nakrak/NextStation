@@ -1,0 +1,4 @@
+#Sun Apr 22 02:30:36 ICT 2018
+base.0=C\:\\Users\\Penguin\\Desktop\\NextStation\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+renamed.0=classes.dex
+file.0=C\:\\Users\\Penguin\\Desktop\\NextStation\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0\\classes.dex

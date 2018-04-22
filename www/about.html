@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' gap:; style-src 'self' 'unsafe-inline'; media-src *" />
+  <link rel="stylesheet" type="text/css" href="uilib/onsen/css/onsenui.css" />
+  <link rel="stylesheet" type="text/css" href="uilib/onsen/css/old-onsen-css-components.min.css" />
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="uilib/onsen/js/onsenui.min.js"></script>
+  <script type="text/javascript" src="uilib/onsen/js/jquery.min.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <title>About</title>
+  <script>
+    window.fn = {};
+
+    window.fn.toggleMenu = function () {
+      document.getElementById('appSplitter').right.toggle();
+    };
+
+    window.fn.loadView = function (index) {
+      document.getElementById('appTabbar').setActiveTab(index);
+      document.getElementById('sidemenu').close();
+    };
+
+    window.fn.loadLink = function (url) {
+      window.open(url, '_blank');
+    };
+
+    window.fn.pushPage = function (page, anim) {
+      if (anim) {
+        document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+      } else {
+        document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
+      }
+    };
+  </script>
+
+</head>
+
+<body>
+
+  <ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
+    <ons-page>
+      <ons-splitter id="appSplitter">
+        <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px"></ons-splitter-side>
+        <ons-splitter-content page="tabbar.html"></ons-splitter-content>
+      </ons-splitter>
+    </ons-page>
+  </ons-navigator>
+
+  <template id="tabbar.html">
+    <ons-page id="tabbar-page">
+      <ons-toolbar style="background-color:#4267b2;">
+        <ons-back-button style="color:#FFFFFF;" >back</ons-back-button>
+        <div class="center" style="color: white;">About</div>
+      </ons-toolbar>   
+        
+      <ons-tabbar swipeable id="appTabbar" position="auto">
+        <ons-tab label="About" icon="md-help" page="about.html" active></ons-tab>
+        
+      </ons-tabbar>
+        
+      <script>
+        ons.getScriptPage().addEventListener('prechange', function(event) {
+          if (event.target.matches('#appTabbar')) {
+            event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+          }
+        });
+      </script>
+    </ons-page>
+  </template>
+  <template id="about.html">
+    <ons-page>
+      <p class="intro">
+      </p>
+
+      <ons-card onclick="fn.pushPage({'id': 'developer.html', 'title': 'Developer'})">
+        <div class="title">Developer</div>
+      </ons-card>
+      <ons-card onclick="fn.pushPage({'id': 'application.html', 'title': 'Application'})">
+        <div class="title">Application</div>
+      </ons-card>
+
+      <style>
+      .intro {
+        text-align: center;
+        padding: 0 20px;
+        margin-top: 40px;
+      }
+
+      ons-card {
+        cursor: pointer;
+        color: #333;
+      }
+
+      .card__title,
+      .card--material__title {
+        font-size: 20px;
+      }
+    </style>
+  </ons-page>
+</template>
+
+<template id="developer.html">
+  <ons-page id='Developer-page'>
+    <ons-toolbar style="background-color:#4267b2;">
+      <div class="left">
+        <ons-back-button style="color:#FFFFFF;">About</ons-back-button>
+      </div>
+      <div class="center" style="color: white;">Developer</div>
+    </ons-toolbar>
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-lg-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="img/25593855_1561665903886522_108080957224947953_n.jpg" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <div class="p-5">
+              <div >Mr.Sornarin Limwilai</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-lg-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="img/19424562_1565820463490738_5816985303821357020_n.jpg" alt="">
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <div class="p-5">
+              <div >Mr.Pollawat Nakrak</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ons-page>
+</template>
+<template id="application.html">
+  <ons-page id="Application-page">
+    <ons-toolbar style="background-color:#4267b2;">
+      <div class="left">
+        <ons-back-button style="color:#FFFFFF;">About</ons-back-button>
+      </div>
+      <div class="center" style="color: white;">Application</div>
+    </ons-toolbar>
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6 order-lg-1">
+            <div class="p-5">
+              <div>An application that can alert users when they reach the desired station by vibrating.</div>
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="img/shutterstock_337981274-1.jpg" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ons-page>
+</template>
+
+
+</body>
+
+</html>
