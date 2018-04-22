@@ -83,7 +83,6 @@ function attachMessage(marker, contentString,latt,lngg) {
     map.setZoom(15);
     map.setCenter(marker.getPosition());
     infowindow.open(map, marker);
-
     if (marker.getAnimation() !== null){
       marker.setAnimation(null);
     } else {
@@ -94,8 +93,6 @@ function attachMessage(marker, contentString,latt,lngg) {
 }
 
 ////////////////////////////End Show Message ////////////////////////////////////////////////////////////////////
-
-
 ///////////////////////////  Start  setInterval Location   ///////////////////////////////////////
 
 var myVar;
@@ -123,7 +120,7 @@ function getGeoLocation() {
 
   navigator.geolocation.getCurrentPosition(updateLocation, errorHandler, { enableHighAccuracy: false, maximumAge: 60000, timeout: 27000 });
 }
-function updateLocation(position) {
+function updateLocation() {
 
   longitudeS = position.coords.longitude;
   latitudeS = position.coords.latitude;
@@ -137,6 +134,7 @@ function errorHandler(error) {
 ///////////////////////////  Start  GO   ///////////////////////////////////////
 
 function Go(){
+  document.getElementById('open').style.display = "none";
   markerMylocation.setVisible(false); 
   getLocation()
   directionsService = new google.maps.DirectionsService();
@@ -174,8 +172,6 @@ function Go(){
 });
 
 }
-
-
 /////////////////////////// End Go ///////////////////////////////////////////
 /////////////////////////// START STOP GO ///////////////////////////////////////////
 
@@ -185,26 +181,16 @@ function StopGo() {
 }
 /////////////////////////// End STOP Go ///////////////////////////////////////////
 
-
 //////////////////////// OPEN BTS /////////////////////////////////////////////
-
 function OpenBTS(){
   window.location="index.html";
 }
-
 ///////////////////////// END  BTS ///////////////////////////////////
-
-
-
 //////////////////////// OPEN Where R You /////////////////////////////////////////////
-
 function OpenWhereRYou(){
   window.location="whereRUgoing.html";
 }
-
 ///////////////////////// END  Where R You ///////////////////////////////////
-
-
 //////////////////////////////////Vibration TEST ///////////////////////////
 function vibration() {
   var time = 3000;

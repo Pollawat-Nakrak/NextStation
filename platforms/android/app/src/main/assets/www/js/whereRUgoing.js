@@ -106,6 +106,7 @@ function search(){
     var Let2 = res[1];
     subA = Let2.replace("),","");
     end = new google.maps.LatLng(Let1, subA);
+    alert (end);
   });
 }
 
@@ -120,7 +121,12 @@ function search(){
 
 var myVar;
 function myStartFunction() {
-  myVar = setInterval(function(){ Go(); }, 2000);
+
+ if (latLong1 == null){
+  alert ("กรุณาเลือกจุดหมายปลายทางบนแผนที่");
+  StopGo();
+} else{
+  myVar = setInterval(function(){ Go(); }, 2000);}
 }
 
 ///////////////////////////  End  setInterval Location   ///////////////////////////////////////
@@ -151,34 +157,20 @@ function errorHandler(error) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ///////////////////////////  Start  GO   ///////////////////////////////////////
 
-
-function Go(end){
+function Go(){
+  document.getElementById('open').style.display = "none";
   marker.setVisible(false); 
   getLocation()
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
-  test = new google.maps.LatLng(13.693742, 100.473556);
+  
   alert ("go");
   alert (end);
   var request = {
     origin: latLong,
-    destination: test,
+    destination: end,
     travelMode: google.maps.TravelMode.DRIVING
   };
 

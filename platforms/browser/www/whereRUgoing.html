@@ -7,7 +7,7 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <link rel="stylesheet" type="text/css" href="uilib/onsen/css/onsenui.css" />
-    <link rel="stylesheet" type="text/css" href="uilib/onsen/css/onsen-css-components.min.css" />
+    <link rel="stylesheet" type="text/css" href="uilib/onsen/css/old-onsen-css-components.min.css" />
     <script type="text/javascript" src="uilib/onsen/js/onsenui.min.js"></script>
     <script type="text/javascript" src="uilib/onsen/js/jquery.min.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
@@ -67,12 +67,14 @@
                     NextStation
                 </div>
             </ons-toolbar>
-
-
-            <button id = "getPosition">MyLocation</button> 
-            <input id="pac-input"  type="text" placeholder="Search Box" onclick="search()">
-            <button onclick="myStartFunction()">GO</button>
-            <button onclick="StopGo()">STOP</button>
+                   <br />
+            <center>        
+            <button id = "getPosition" class="button--large--cta" style="width: 95%; margin: 0 auto; background-color:#33CCFF   ;">My Location</button> </center><br />
+            <center> 
+            <input id="pac-input" class="search-input"  type="text" placeholder="Search Box" onclick="search()" size="10"></center><br />
+            <center> 
+            <button onclick="myStartFunction()" class="button button--material" style="background-color:#33CC66"  id="open">GO</button>
+            <button onclick="StopGo()"class="button button--material" style="background-color:#CC0033">STOP</button></center><br />
             <div id="map"></div>
             <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdgpD4n6fIdntdny4NZRrj3oZ0HyT8js&callback=getPosition&libraries=places">
             </script>

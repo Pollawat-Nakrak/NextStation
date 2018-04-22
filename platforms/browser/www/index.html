@@ -7,7 +7,7 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <link rel="stylesheet" type="text/css" href="uilib/onsen/css/onsenui.css" />
-    <link rel="stylesheet" type="text/css" href="uilib/onsen/css/onsen-css-components.min.css" />
+    <link rel="stylesheet" type="text/css" href="uilib/onsen/css/old-onsen-css-components.min.css" />
     <script type="text/javascript" src="uilib/onsen/js/onsenui.min.js"></script>
     <script type="text/javascript" src="uilib/onsen/js/jquery.min.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
@@ -64,25 +64,28 @@
                 <div class="center" style="color:white">
                     NextStation
                 </div>
-            </ons-toolbar>
-            <button id="open" onclick="myStartFunction()">GO</button>
-            <button onclick="StopGo() ">STOP</button>
+            </ons-toolbar><br /> 
 
            <!--  From: 
             <input disabled name="namePlaceGet" type="text" id="namePlaceGet" size="60" />
             <br />
             To:
             <input disabled name="contentString" type="text" id="contentString" size="60" /><br /> -->
-            ระยะทางข้อความ  
-            <input disabled="" name="distance_text" type="text" id="distance_text" value="" size="17" />
-            ระยะทางตัวเลข 
-            <input disabled name="distance_value" type="text" id="distance_value" value="0" size="17" />
-            เมตร<br />
-            ระยะเวลาข้อความ
-            <input disabled name="duration_text" type="text" id="duration_text" size="15" />
-            ระยะเวลาตัวเลข
-            <input disabled name="duration_value" type="text" id="duration_value" value="0" size="17" />
-            วินาที
+            <center>
+            Distance
+            <input disabled="" name="distance_text" type="text" class="text-input text-input--underbar" id="distance_text" value="" size="5" />
+            |
+            <input disabled name="distance_value" type="text" class="text-input text-input--underbar" id="distance_value" value="" size="5" />
+            m.<br /> <br /> 
+            Time
+            <input disabled name="duration_text" type="text" class="text-input text-input--underbar" id="duration_text" size="5" />
+            |
+            <input disabled name="duration_value" type="text" class="text-input text-input--underbar" id="duration_value" value="" size="5" />
+            s. </center>
+             <br /> 
+            <center>
+            <button id="open" class="button button--material" onclick="myStartFunction()" style="background-color:#33CC66">GO</button>
+            <button class="button button--material" onclick="StopGo()" style="background-color:#CC0033">STOP</button></center><br />             
             <div id="map"></div>
             <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhdgpD4n6fIdntdny4NZRrj3oZ0HyT8js&callback=getPosition">
             </script>
