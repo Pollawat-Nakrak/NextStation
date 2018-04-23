@@ -111,18 +111,11 @@ function search(){
 }
 
 ///////////////////////////  End Search  ///////////////////////////////////////
-
-
-
-
-
-
 ///////////////////////////  Start  setInterval Location   ///////////////////////////////////////
-
 var myVar;
 function myStartFunction() {
 
- if (latLong1 == null){
+ if (end == null){
   alert ("กรุณาเลือกจุดหมายปลายทางบนแผนที่");
   StopGo();
 } else{
