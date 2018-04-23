@@ -168,7 +168,6 @@ function Go(){
     travelMode: google.maps.TravelMode.DRIVING
   };
 
-
   directionsService.route(request, function (response, status) {
 
     alert ("Route");
@@ -212,6 +211,13 @@ function OpenWhereRYou(){
 }
 
 ///////////////////////// END  Where R You ///////////////////////////////////
+
+////////////////////////////////////////Start Navigation Drawer////////////////////////////////////////////
+function OpenTabLeft() {
+  var menu = document.getElementById('menu');
+  menu.open();
+};
+//////////////////////////////////////// End Navigation Drawer ////////////////////////////////////////
 
 
 //////////////////////////////////Vibration TEST ///////////////////////////
