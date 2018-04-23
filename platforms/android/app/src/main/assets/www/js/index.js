@@ -110,6 +110,7 @@ function myStartFunction() {
 
 function getLocation() {
   if (navigator.geolocation) {
+    alert ("GETLOCATION");
     getGeoLocation();
   } else {
     alert("CAN'T GET LOCATION");
@@ -121,7 +122,7 @@ function getGeoLocation() {
   navigator.geolocation.getCurrentPosition(updateLocation, errorHandler, { enableHighAccuracy: false, maximumAge: 60000, timeout: 27000 });
 }
 function updateLocation() {
-
+  alert ("UPDATE LOCATION");
   longitudeS = position.coords.longitude;
   latitudeS = position.coords.latitude;
   latLong = new google.maps.LatLng(latitudeS, longitudeS);
@@ -134,7 +135,6 @@ function errorHandler(error) {
 ///////////////////////////  Start  GO   ///////////////////////////////////////
 
 function Go() {
-  document.getElementById('open').style.display = "none";
   markerMylocation.setVisible(false);
   getLocation()
   directionsService = new google.maps.DirectionsService();
@@ -164,7 +164,8 @@ function Go() {
           $("#duration_text").val(durationText);
           $("#duration_value").val(durationVal);
        if (distanceVal <= 1000) {
-        vibration();
+        alert ()
+               vibration();
       }
       else if (distanceVal > 1000) {
     
@@ -203,6 +204,7 @@ function OpenWhereRYou() {
 //////////////////////////////////Vibration TEST ///////////////////////////
 function vibration() {
   var time = 3000;
+  alert ("vibration")
   navigator.vibrate(time);
 }
 ////////////////////////////////////////END Vibration TEST ////////////////
