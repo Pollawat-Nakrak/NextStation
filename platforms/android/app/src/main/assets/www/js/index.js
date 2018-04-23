@@ -122,7 +122,7 @@ function getGeoLocation() {
 
   navigator.geolocation.getCurrentPosition(updateLocation, errorHandler, { enableHighAccuracy: false, maximumAge: 60000, timeout: 27000 });
 }
-function updateLocation() {
+function updateLocation(position) {
   alert ("UPDATE LOCATION");
   longitudeS = position.coords.longitude;
   latitudeS = position.coords.latitude;
@@ -138,7 +138,6 @@ function errorHandler(error) {
 
 function Go() {
   markerMylocation.setVisible(false);
-  alert ()
   getLocation()
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
