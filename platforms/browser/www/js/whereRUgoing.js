@@ -106,7 +106,6 @@ function search(){
     var Let2 = res[1];
     subA = Let2.replace("),","");
     end = new google.maps.LatLng(Let1, subA);
-    alert (end);
   });
 }
 
@@ -122,11 +121,11 @@ function search(){
 var myVar;
 function myStartFunction() {
 
- if (latLong1 == null){
+ if (end == null){
   alert ("กรุณาเลือกจุดหมายปลายทางบนแผนที่");
   StopGo();
 } else{
-  myVar = setInterval(function(){ Go(); }, 2000);}
+  myVar = setInterval(function(){ Go(); }, 5000);}
 }
 
 ///////////////////////////  End  setInterval Location   ///////////////////////////////////////
@@ -148,8 +147,6 @@ function updateLocation(position) {
   longitudeS = position.coords.longitude;
   latitudeS = position.coords.latitude;
   latLong = new google.maps.LatLng(latitudeS, longitudeS);
-  alert ("Update Location");
-  alert (latLong);
 }
 
 function errorHandler(error) {
@@ -165,9 +162,6 @@ function Go(){
   getLocation()
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
-  
-  alert ("go");
-  alert (end);
   var request = {
     origin: latLong,
     destination: end,
@@ -176,9 +170,17 @@ function Go(){
 
 
   directionsService.route(request, function (response, status) {
+
+    alert ("Route");
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
       directionsDisplay.setMap(map);
+      if (distanceVal <= 1000) {
+        vibration();
+      }
+      else if (distanceVal > 1000) {
+        alert("NO");
+      }
     } else {
       alert ("Error");
     }
@@ -190,7 +192,7 @@ function Go(){
 
 function StopGo() {
   getPosition();
-  clearInterval(myVar);
+  location.reload();
 }
 /////////////////////////// End STOP Go ///////////////////////////////////////////
 
@@ -215,11 +217,15 @@ function OpenWhereRYou(){
 //////////////////////////////////Vibration TEST ///////////////////////////
 function vibration() {
   var time = 3000;
-  navigator.vibrate(time);
-  alert ("Vibration");
 }
 ////////////////////////////////////////END Vibration TEST ////////////////
 
+
+//////////////////////////////////Open About//////////////////////////
+function OpenAbout() {
+  window.location = "about.html";
+}
+////////////////////////////////////////END Open About////////////////
 
 
 

@@ -7,7 +7,7 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
     <link rel="stylesheet" type="text/css" href="uilib/onsen/css/onsenui.css" />
-    <link rel="stylesheet" type="text/css" href="uilib/onsen/css/old-onsen-css-components.min.css" />
+    <link rel="stylesheet" type="text/css" href="uilib/onsen/css/onsen-css-components.min.css" />
     <script type="text/javascript" src="uilib/onsen/js/onsenui.min.js"></script>
     <script type="text/javascript" src="uilib/onsen/js/jquery.min.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
@@ -32,9 +32,9 @@
                         <ons-icon icon="fa-street-view" style="color:white;margin-right:10%"></ons-icon>
                         <p style="color:white;">Where r u going?</p>
                     </ons-list-item>
-                    <ons-list-item onclick="fn.load('about.html')"tappable>
+                    <ons-list-item onclick="OpenAbout()"tappable>
                         <ons-icon icon="md-help" style="color:white;margin-right:10%"></ons-icon>
-                        <p style="color:white;"> About</p>
+                        <p style="color:white;">About</p>
                     </ons-list-item>
 
                 </ons-list>
@@ -57,7 +57,7 @@
         <ons-page id="index">
             <ons-toolbar style="background-color:#4267b2;">
                 <div class="left">
-                    <ons-toolbar-button onclick="fn.open()">
+                    <ons-toolbar-button onclick="OpenTabLeft()">
                         <ons-icon icon="md-menu" style="color:white"></ons-icon>
                     </ons-toolbar-button>
                 </div>
