@@ -120,9 +120,9 @@ function getLocation() {
 
 function getGeoLocation() {
 
-  navigator.geolocation.getCurrentPosition(updateLocation, errorHandler, { enableHighAccuracy: false, maximumAge: 60000, timeout: 27000 });
+  navigator.geolocation.getCurrentPosition(updateLocation, errorHandler, { enableHighAccuracy: true, maximumAge: 60000 });
 }
-function updateLocation() {
+function updateLocation(position) {
   alert ("UPDATE LOCATION");
   longitudeS = position.coords.longitude;
   latitudeS = position.coords.latitude;
@@ -138,7 +138,6 @@ function errorHandler(error) {
 
 function Go() {
   markerMylocation.setVisible(false);
-  alert ()
   getLocation()
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
@@ -166,11 +165,12 @@ function Go() {
           $("#distance_value").val(distanceVal);
           $("#duration_text").val(durationText);
           $("#duration_value").val(durationVal);
+      alert (distanceVal);
        if (distanceVal <= 1000) {
                vibration();
       }
       else if (distanceVal > 1000) {
-    
+          alert ("No");
       }
 
     } else {

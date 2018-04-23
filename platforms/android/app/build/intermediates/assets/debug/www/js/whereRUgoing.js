@@ -12,47 +12,47 @@ var test;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function onDeviceReady() {
- document.getElementById("getPosition").addEventListener("click", getPosition); 
- document.getElementById("search").addEventListener("click", search); 
+  document.getElementById("getPosition").addEventListener("click", getPosition);
+  document.getElementById("search").addEventListener("click", search);
 }
 
 
 
 function getPosition() {
- var options = {
-  enableHighAccuracy: true,
-  maximumAge: 3600000
-}
-var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+  var options = {
+    enableHighAccuracy: true,
+    maximumAge: 3600000
+  }
+  var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
 
-//////////////// START SET MYLOCATION  ////////////////////////////////////
-function onSuccess(position) {
-  longitude = position.coords.longitude;
-  latitude = position.coords.latitude;
-  latLong = new google.maps.LatLng(latitude, longitude);
-  var mapOptions = {
-    center: latLong,
-    zoom: 13,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+  //////////////// START SET MYLOCATION  ////////////////////////////////////
+  function onSuccess(position) {
+    longitude = position.coords.longitude;
+    latitude = position.coords.latitude;
+    latLong = new google.maps.LatLng(latitude, longitude);
+    var mapOptions = {
+      center: latLong,
+      zoom: 13,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+    marker = new google.maps.Marker({
+      position: latLong,
+      map: map,
+      animation: google.maps.Animation.BOUNCE,
+      title: 'Hello World!'
+    });
+
   };
-  map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-  marker = new google.maps.Marker({
-    position: latLong,
-    map: map,
-    animation: google.maps.Animation.BOUNCE,
-    title: 'Hello World!'
-  });
+  //////////////// END  SET MYLOCATION  ////////////////////////////////////
 
-};
+  ///////////////////////////  Error Report ///////////////////////////////////////
 
-//////////////// END  SET MYLOCATION  ////////////////////////////////////
-
-///////////////////////////  Error Report ///////////////////////////////////////
-
-function onError(error) {
-  alert('code: '    + error.code    + '\n' + 'message: ' + error.message + '\n');
-}
+  function onError(error) {
+    alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+  }
 
 
 }
@@ -61,21 +61,21 @@ function onError(error) {
 
 ///////////////////////////  Start Search  ///////////////////////////////////////
 
-function search(){
+function search() {
   var input = document.getElementById('pac-input');
   var searchBox = new google.maps.places.SearchBox(input);
-  map.addListener('bounds_changed', function() {
+  map.addListener('bounds_changed', function () {
     searchBox.setBounds(map.getBounds());
   });
   var markers = [];
-  searchBox.addListener('places_changed', function() {
+  searchBox.addListener('places_changed', function () {
     var places = searchBox.getPlaces();
 
     if (places.length == 0) {
       return;
     }
     var bounds = new google.maps.LatLngBounds();
-    places.forEach(function(place) {
+    places.forEach(function (place) {
       var icon = {
         url: place.icon,
         size: new google.maps.Size(71, 71),
@@ -96,15 +96,15 @@ function search(){
       } else {
         bounds.extend(place.geometry.location);
       }
-    }); 
+    });
     map.fitBounds(bounds);
     var BoundsToNumber = bounds.toString();
-    var sub1 = BoundsToNumber.replace("((","");
-    var sub2 = sub1.replace(",","");
+    var sub1 = BoundsToNumber.replace("((", "");
+    var sub2 = sub1.replace(",", "");
     var res = sub2.split(" ");
-    Let1 = res[0]; 
+    Let1 = res[0];
     var Let2 = res[1];
-    subA = Let2.replace("),","");
+    subA = Let2.replace("),", "");
     end = new google.maps.LatLng(Let1, subA);
   });
 }
@@ -121,11 +121,12 @@ function search(){
 var myVar;
 function myStartFunction() {
 
- if (end == null){
-  alert ("กรุณาเลือกจุดหมายปลายทางบนแผนที่");
-  StopGo();
-} else{
-  myVar = setInterval(function(){ Go(); }, 5000);}
+  if (end == null) {
+    alert("กรุณาเลือกจุดหมายปลายทางบนแผนที่");
+    StopGo();
+  } else {
+    myVar = setInterval(function () { Go(); }, 5000);
+  }
 }
 
 ///////////////////////////  End  setInterval Location   ///////////////////////////////////////
@@ -133,8 +134,8 @@ function myStartFunction() {
 function getLocation() {
   if (navigator.geolocation) {
     getGeoLocation();
-  } else { 
-    alert ("CAN'T GET LOCATION");
+  } else {
+    alert("CAN'T GET LOCATION");
   }
 }
 
@@ -147,6 +148,7 @@ function updateLocation(position) {
   longitudeS = position.coords.longitude;
   latitudeS = position.coords.latitude;
   latLong = new google.maps.LatLng(latitudeS, longitudeS);
+  alert(latLong);
 }
 
 function errorHandler(error) {
@@ -156,9 +158,9 @@ function errorHandler(error) {
 
 ///////////////////////////  Start  GO   ///////////////////////////////////////
 
-function Go(){
+function Go() {
   document.getElementById('open').style.display = "none";
-  marker.setVisible(false); 
+  marker.setVisible(false);
   getLocation()
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
@@ -172,6 +174,8 @@ function Go(){
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
       directionsDisplay.setMap(map);
+      var distanceText = response.routes[0].legs[0].distance.text; // ระยะทางข้อความ
+      var distanceVal = response.routes[0].legs[0].distance.value;// ระยะทางตัวเลข
       if (distanceVal <= 1000) {
         vibration();
       }
@@ -179,7 +183,7 @@ function Go(){
         alert("NO");
       }
     } else {
-      alert ("Error");
+      alert("Error");
     }
   });
 
@@ -196,16 +200,16 @@ function StopGo() {
 
 //////////////////////// OPEN BTS /////////////////////////////////////////////
 
-function OpenBTS(){
-  window.location="index.html";
+function OpenBTS() {
+  window.location = "index.html";
 }
 
 ///////////////////////// END  BTS ///////////////////////////////////
 
 //////////////////////// OPEN Where R You /////////////////////////////////////////////
 
-function OpenWhereRYou(){
-  window.location="whereRUgoing.html";
+function OpenWhereRYou() {
+  window.location = "whereRUgoing.html";
 }
 
 ///////////////////////// END  Where R You ///////////////////////////////////
