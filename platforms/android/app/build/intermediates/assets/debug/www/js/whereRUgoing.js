@@ -169,8 +169,6 @@ function Go(){
   };
 
   directionsService.route(request, function (response, status) {
-
-    alert ("Route");
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
       directionsDisplay.setMap(map);
