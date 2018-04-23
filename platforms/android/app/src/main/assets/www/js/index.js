@@ -142,7 +142,7 @@ function Go() {
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
   var request = {
-    origin: latLong,
+    origin: latLongS,
     destination: latLong1,
     travelMode: google.maps.TravelMode.DRIVING
   };
