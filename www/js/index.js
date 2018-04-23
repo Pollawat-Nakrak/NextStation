@@ -7,6 +7,7 @@ var latLong;
 var latLong1;
 var longitudeS;
 var latitudeS;
+var latLongS;
 var marker;
 var markerMylocation;
 
@@ -125,7 +126,8 @@ function updateLocation() {
   alert ("UPDATE LOCATION");
   longitudeS = position.coords.longitude;
   latitudeS = position.coords.latitude;
-  latLong = new google.maps.LatLng(latitudeS, longitudeS);
+  latLongS = new google.maps.LatLng(latitudeS, longitudeS);
+  alert (latLongS);
 }
 
 function errorHandler(error) {
@@ -136,6 +138,7 @@ function errorHandler(error) {
 
 function Go() {
   markerMylocation.setVisible(false);
+  alert ()
   getLocation()
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
@@ -164,7 +167,6 @@ function Go() {
           $("#duration_text").val(durationText);
           $("#duration_value").val(durationVal);
        if (distanceVal <= 1000) {
-        alert ()
                vibration();
       }
       else if (distanceVal > 1000) {
