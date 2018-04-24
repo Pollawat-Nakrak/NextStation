@@ -1,4 +1,4 @@
-#Mon Apr 23 16:22:16 ICT 2018
-base.0=/Users/pollawatnakrak/Desktop/tttt/NextStation/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
+#Tue Apr 24 09:50:19 ICT 2018
+base.0=/Users/pollawatnakrak/Desktop/NextStation/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
 renamed.0=classes.dex
-file.0=/Users/pollawatnakrak/Desktop/tttt/NextStation/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0/classes.dex
+file.0=/Users/pollawatnakrak/Desktop/NextStation/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0/classes.dex

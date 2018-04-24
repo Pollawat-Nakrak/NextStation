@@ -1,23 +1,16 @@
 var map;
-var Let1;
+var subB;
 var subA;
-var map;
 var longitude;
 var latitude;
 var start;
 var end;
 var marker;
-var latLong
-var test;
+var StartPoint;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 function onDeviceReady() {
   document.getElementById("getPosition").addEventListener("click", getPosition);
-  document.getElementById("search").addEventListener("click", search);
 }
-
-
-
 function getPosition() {
   var options = {
     enableHighAccuracy: true,
@@ -29,16 +22,16 @@ function getPosition() {
   function onSuccess(position) {
     longitude = position.coords.longitude;
     latitude = position.coords.latitude;
-    latLong = new google.maps.LatLng(latitude, longitude);
+    StartPoint = new google.maps.LatLng(latitude, longitude);
     var mapOptions = {
-      center: latLong,
+      center: StartPoint,
       zoom: 13,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
     marker = new google.maps.Marker({
-      position: latLong,
+      position: StartPoint,
       map: map,
       animation: google.maps.Animation.BOUNCE,
       title: 'Hello World!'
@@ -62,6 +55,7 @@ function getPosition() {
 ///////////////////////////  Start Search  ///////////////////////////////////////
 
 function search() {
+  alert ("search");
   var input = document.getElementById('pac-input');
   var searchBox = new google.maps.places.SearchBox(input);
   map.addListener('bounds_changed', function () {
@@ -102,35 +96,25 @@ function search() {
     var sub1 = BoundsToNumber.replace("((", "");
     var sub2 = sub1.replace(",", "");
     var res = sub2.split(" ");
-    Let1 = res[0];
+    subB = res[0];
     var Let2 = res[1];
     subA = Let2.replace("),", "");
-    end = new google.maps.LatLng(Let1, subA);
+    end = new google.maps.LatLng(subB, subA);
   });
 }
 
 ///////////////////////////  End Search  ///////////////////////////////////////
-
-
-
-
-
-
 ///////////////////////////  Start  setInterval Location   ///////////////////////////////////////
-
 var myVar;
 function myStartFunction() {
-
   if (end == null) {
     alert("กรุณาเลือกจุดหมายปลายทางบนแผนที่");
     StopGo();
   } else {
-    myVar = setInterval(function () { Go(); }, 5000);
+    myVar = setInterval(function () { Go(); }, 3500);
   }
 }
-
 ///////////////////////////  End  setInterval Location   ///////////////////////////////////////
-
 function getLocation() {
   if (navigator.geolocation) {
     getGeoLocation();
@@ -138,26 +122,18 @@ function getLocation() {
     alert("CAN'T GET LOCATION");
   }
 }
-
 function getGeoLocation() {
-
   navigator.geolocation.getCurrentPosition(updateLocation, errorHandler, { enableHighAccuracy: false, maximumAge: 60000, timeout: 27000 });
 }
 function updateLocation(position) {
-
-  longitudeS = position.coords.longitude;
-  latitudeS = position.coords.latitude;
-  latLong = new google.maps.LatLng(latitudeS, longitudeS);
-  alert(latLong);
+  longitude = position.coords.longitude;
+  latitude = position.coords.latitude;
+  StartPoint = new google.maps.LatLng(latitude, longitude);
 }
-
 function errorHandler(error) {
   console.log('Geolocation error : code ' + error.code + ' - ' + error.message);
 }
-
-
 ///////////////////////////  Start  GO   ///////////////////////////////////////
-
 function Go() {
   document.getElementById('open').style.display = "none";
   marker.setVisible(false);
@@ -165,11 +141,10 @@ function Go() {
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
   var request = {
-    origin: latLong,
+    origin: StartPoint,
     destination: end,
     travelMode: google.maps.TravelMode.DRIVING
   };
-
   directionsService.route(request, function (response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
@@ -179,56 +154,36 @@ function Go() {
       if (distanceVal <= 1000) {
         vibration();
       }
-      else if (distanceVal > 1000) {
-        alert("NO");
-      }
-    } else {
-      alert("Error");
-    }
+    } 
   });
-
 }
-
 /////////////////////////// START STOP GO ///////////////////////////////////////////
-
 function StopGo() {
   getPosition();
   location.reload();
 }
 /////////////////////////// End STOP Go ///////////////////////////////////////////
-
-
 //////////////////////// OPEN BTS /////////////////////////////////////////////
-
 function OpenBTS() {
   window.location = "index.html";
 }
-
 ///////////////////////// END  BTS ///////////////////////////////////
-
 //////////////////////// OPEN Where R You /////////////////////////////////////////////
-
 function OpenWhereRYou() {
   window.location = "whereRUgoing.html";
 }
-
 ///////////////////////// END  Where R You ///////////////////////////////////
-
 ////////////////////////////////////////Start Navigation Drawer////////////////////////////////////////////
 function OpenTabLeft() {
   var menu = document.getElementById('menu');
   menu.open();
 };
 //////////////////////////////////////// End Navigation Drawer ////////////////////////////////////////
-
-
 //////////////////////////////////Vibration TEST ///////////////////////////
 function vibration() {
   var time = 3000;
 }
 ////////////////////////////////////////END Vibration TEST ////////////////
-
-
 //////////////////////////////////Open About//////////////////////////
 function OpenAbout() {
   window.location = "about.html";

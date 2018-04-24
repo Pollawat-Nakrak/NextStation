@@ -1,22 +1,15 @@
 var map;
 var contentString;
 var pic;
-var lati1;
-var long1;
-var latLong;
-var latLong1;
-var longitudeS;
-var latitudeS;
-var latLongS;
+var StartPoint;
+var FinalPoint;
 var marker;
 var markerMylocation;
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function onDeviceReady() {
   document.getElementById("getPosition").addEventListener("click", getPosition);
   document.getElementById("search").addEventListener("click", search);
   document.getElementById("vibration").addEventListener("click", vibration);
-  document.getElementById("vibrationPattern").addEventListener("click", vibrationPattern);
 }
 function getPosition() {
   var options = {
@@ -24,19 +17,17 @@ function getPosition() {
     maximumAge: 3600000
   }
   var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
-
   //////////////// START SET MYLOCATION  /////////////////////////////////////////////////////////////////////////////////////////////////
   function onSuccess(position) {
     longitude = position.coords.longitude;
     latitude = position.coords.latitude;
-    latLong = new google.maps.LatLng(latitude, longitude);
+    StartPoint = new google.maps.LatLng(latitude, longitude);
     var mapOptions = {
-      center: latLong,
+      center: StartPoint,
       zoom: 13,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
     //////////////// START Marker BTS  /////////////////////////////////////////////////////////////////////////////////////////////////
     for (var i = 0; i < locat.length; i++) {
       marker = new google.maps.Marker({
@@ -54,7 +45,7 @@ function getPosition() {
     }
     //////////////// END Marker BTS /////////////////////////////////////////////////////////////////////////////////////////////////
     markerMylocation = new google.maps.Marker({
-      position: latLong,
+      position: StartPoint,
       map: map,
       animation: google.maps.Animation.BOUNCE,
       title: 'Hello World!'
@@ -62,25 +53,19 @@ function getPosition() {
 
   };
   //////////////// END  SET MYLOCATION  /////////////////////////////////////////////////////////////////////////////////////////////////
-
   //////////////// Start Check Eror MYLOCATION   /////////////////////////////////////////////////////////////////////////////////////////////////
   function onError(error) {
     alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
   }
   //////////////// END Check Eror MYLOCATION   /////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 }
-
 ////////////////////////////Start Show Message ////////////////////////////////////////////////////////////////////
-
 function attachMessage(marker, contentString, latt, lngg) {
   var infowindow = new google.maps.InfoWindow({
     content: contentString
-
   });
   marker.addListener('click', function () {
-    latLong1 = new google.maps.LatLng(latt, lngg);
+    FinalPoint = new google.maps.LatLng(latt, lngg);
     map.setZoom(15);
     map.setCenter(marker.getPosition());
     infowindow.open(map, marker);
@@ -90,94 +75,68 @@ function attachMessage(marker, contentString, latt, lngg) {
       marker.setAnimation(google.maps.Animation.BOUNCE);
     }
   });
-
 }
-
 ////////////////////////////End Show Message ////////////////////////////////////////////////////////////////////
 ///////////////////////////  Start  setInterval Location   ///////////////////////////////////////
-
 var myVar;
 function myStartFunction() {
-  if (latLong1 == null) {
+  if (FinalPoint == null) {
     alert("กรุณาเลือกจุดหมายปลายทางบนแผนที่");
     StopGo();
   }
   else {
-    myVar = setInterval(function () { Go(); }, 5000);
+    myVar = setInterval(function () { Go(); }, 2000);
   }
 }
-
 ///////////////////////////  End  setInterval Location   ///////////////////////////////////////
-
 function getLocation() {
   if (navigator.geolocation) {
-    alert ("GETLOCATION");
     getGeoLocation();
   } else {
     alert("CAN'T GET LOCATION");
   }
 }
-
 function getGeoLocation() {
-
   navigator.geolocation.getCurrentPosition(updateLocation, errorHandler, { enableHighAccuracy: true, maximumAge: 60000 });
 }
 function updateLocation(position) {
-  alert ("UPDATE LOCATION");
-  longitudeS = position.coords.longitude;
-  latitudeS = position.coords.latitude;
-  latLongS = new google.maps.LatLng(latitudeS, longitudeS);
-  alert (latLongS);
+  longitude = position.coords.longitude;
+  latitude = position.coords.latitude;
+  StartPoint = new google.maps.LatLng(latitude, longitude);
 }
-
 function errorHandler(error) {
   console.log('Geolocation error : code ' + error.code + ' - ' + error.message);
 }
-
 ///////////////////////////  Start  GO   ///////////////////////////////////////
-
 function Go() {
   markerMylocation.setVisible(false);
   getLocation()
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
   var request = {
-    origin: latLongS,
-    destination: latLong1,
+    origin: StartPoint,
+    destination: FinalPoint,
     travelMode: google.maps.TravelMode.DRIVING
   };
-
-
   directionsService.route(request, function (response, status) {
     if (status == google.maps.DirectionsStatus.OK) {
       directionsDisplay.setDirections(response);
       directionsDisplay.setMap(map);
-      //     var addressStart=response.routes[0].legs[0].start_address; // สถานที่เริ่มต้น
-      //     var addressEnd=response.routes[0].legs[0].end_address;// สถานที่ปลายทาง
           var distanceText = response.routes[0].legs[0].distance.text; // ระยะทางข้อความ
           var distanceVal = response.routes[0].legs[0].distance.value;// ระยะทางตัวเลข
           var durationText = response.routes[0].legs[0].duration.text; // ระยะเวลาข้อความ
           var durationVal = response.routes[0].legs[0].duration.value; // ระยะเวลาตัวเลข    
-
-      //     $("#namePlaceGet").val(addressStart);
-      //     $("#toPlaceGet").val(addressEnd);
           $("#distance_text").val(distanceText);
           $("#distance_value").val(distanceVal);
           $("#duration_text").val(durationText);
           $("#duration_value").val(durationVal);
-      alert (distanceVal);
        if (distanceVal <= 1000) {
                vibration();
       }
-      else if (distanceVal > 1000) {
-          alert ("No");
-      }
-
     } else {
       alert("Error");
     }
   });
-
 }
 /////////////////////////// End Go ///////////////////////////////////////////
 ////////////////////////////////////////Start Navigation Drawer////////////////////////////////////////////
@@ -187,12 +146,10 @@ function OpenTabLeft() {
 };
 //////////////////////////////////////// End Navigation Drawer ////////////////////////////////////////
 /////////////////////////// START STOP GO ///////////////////////////////////////////
-
 function StopGo() {
   location.reload();
 }
 /////////////////////////// End STOP Go ///////////////////////////////////////////
-
 //////////////////////// OPEN BTS /////////////////////////////////////////////
 function OpenBTS() {
   window.location = "index.html";
@@ -206,11 +163,9 @@ function OpenWhereRYou() {
 //////////////////////////////////Vibration TEST ///////////////////////////
 function vibration() {
   var time = 3000;
-  alert ("vibration")
   navigator.vibrate(time);
 }
 ////////////////////////////////////////END Vibration TEST ////////////////
-
 //////////////////////////////////Open About//////////////////////////
 function OpenAbout() {
   window.location = "about.html";
